@@ -2,7 +2,7 @@ import os
 import sys
 from pathlib import Path
 import shutil
-from colorama import Fore, Style
+from colorama import Style
 import select_menu
 from config_handler import config_path, accent_color
 
