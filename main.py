@@ -19,6 +19,9 @@ elif platform == "darwin":
 elif platform == "win32":
     # todo implement this
     pass
+else:
+    print("Platform not recognized, aborted.")
+    sys.exit()
 
 if not os.path.exists(config_path):
     os.makedirs(config_path)
