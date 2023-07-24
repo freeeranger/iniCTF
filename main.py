@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 import shutil
 from colorama import Style
-import select_menu
 from config_handler import config_path, accent_color
+import select_menu
 
 print(f"Welcome to iniCTF, let the hacking begin >:) (press {accent_color}q{Style.RESET_ALL} to abort)")
 

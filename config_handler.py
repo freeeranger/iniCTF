@@ -1,6 +1,8 @@
 import sys
+import os
 import tomllib
 from pathlib import Path
+import tomli_w
 import utils
 
 
@@ -17,15 +19,29 @@ def get_config_path():
 
 
 def parse_config(path):
+    # Create default config file if there is none
+    if not os.path.isfile(f"{path}/inictf.toml"):
+        with open(f"{path}/inictf.toml", "wb") as f:
+            tomli_w.dump(default_config, f)
+    
     with open(f"{path}/inictf.toml", "rb") as f:
         try:
-            print("ready")
             return tomllib.load(f)
         except Exception:
             print("Error parsing config.")
             sys.exit()
 
-
+default_config = {
+    "general": {
+        "navigation_wrap": False
+    },
+    "appearance": {
+        "pre_selector": "=>",
+        "post_selector": "",
+        "accent_color": "light_magenta",
+        "selector_color": "light_red"
+    }
+}
 config_path = get_config_path()
 config = parse_config(config_path)
 accent_color = utils.parse_color(config["appearance"]["accent_color"])

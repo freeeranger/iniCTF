@@ -27,7 +27,7 @@ def parse_color(color):
             return Fore.LIGHTRED_EX
         case "red":
             return Fore.RED
-        case "light_magenta":
+        case "pink":
             return Fore.LIGHTMAGENTA_EX
         case "magenta":
             return Fore.MAGENTA
@@ -39,11 +39,11 @@ def parse_color(color):
             return Fore.LIGHTCYAN_EX
         case "cyan":
             return Fore.CYAN
-        case "light_white":
-            return Fore.LIGHTWHITE_EX
         case "white":
+            return Fore.LIGHTWHITE_EX
+        case "light_gray":
             return Fore.WHITE
-        case "light_black":
+        case "gray":
             return Fore.LIGHTBLACK_EX
         case "black":
             return Fore.BLACK
