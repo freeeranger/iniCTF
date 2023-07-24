@@ -16,7 +16,7 @@ def show_menu():
         # special styling if the current option is selected
         pre_selector = selector_color + config["appearance"]["pre_selector"] + " " if index == state["selected"] else " " * (len(config["appearance"]["pre_selector"]) + 1)
         post_selector = " " + config["appearance"]["post_selector"] if index == state["selected"] else " " * (len(config["appearance"]["post_selector"]) + 1)
-        
+
         print(pre_selector + f"{i}".ljust(state["longest"], ' ') + post_selector + Style.RESET_ALL)
         index += 1
 
@@ -34,7 +34,7 @@ def navigate_up():
             return
     else:
         state["selected"] -= 1
-    
+
     clear_menu()
     show_menu()
     print("\033[A")
@@ -50,6 +50,7 @@ def navigate_down():
             return
     else:
         state["selected"] += 1
+
     clear_menu()
     show_menu()
     print("\033[A")
