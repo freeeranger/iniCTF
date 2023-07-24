@@ -1,34 +1,26 @@
 import os
 import sys
-from sys import platform
 from pathlib import Path
 import shutil
 from colorama import Fore, Style
 import select_menu
+import config_handler
 
 print(f"Welcome to iniCTF, let the hacking begin >:) (press {Fore.MAGENTA}q{Style.RESET_ALL} to abort)")
 
-config_path = ""
-
-# set config path depending on platform
-if platform in ("linux", "linux2"):
-    # todo implement this
-    pass
-elif platform == "darwin":
-    config_path = f"{str(Path.home())}/Library/Application Support/inictf"
-elif platform == "win32":
-    # todo implement this
-    pass
-else:
+config_path = config_handler.get_config_path()
+if config_path is None:
     print("Platform not recognized, aborted.")
     sys.exit()
+    
+config_handler.parse_config()
 
 if not os.path.exists(config_path):
     os.makedirs(config_path)
 
 # exit on empty config folder
 if not os.listdir(config_path):
-    print(f"Templates folder is empty. To add templates, go to {config_path}.")
+    print(f"No templates found. To add templates, go to {config_path}.")
     print("For more information, see the documentation on github.")
     sys.exit()
 
