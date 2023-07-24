@@ -1,6 +1,6 @@
 from pynput import keyboard
-from colorama import Fore, Style
-from config_handler import config
+from colorama import Style
+from config_handler import config, selector_color
 
 state = {
     "options": [],
@@ -14,7 +14,7 @@ def show_menu():
     index = 0
     for i in state["options"]:
         # special styling if the current option is selected
-        pre_selector = Fore.MAGENTA + config["appearance"]["pre_selector"] + " " if index == state["selected"] else " " * (len(config["appearance"]["pre_selector"]) + 1)
+        pre_selector = selector_color + config["appearance"]["pre_selector"] + " " if index == state["selected"] else " " * (len(config["appearance"]["pre_selector"]) + 1)
         post_selector = " " + config["appearance"]["post_selector"] if index == state["selected"] else " " * (len(config["appearance"]["post_selector"]) + 1)
         
         print(pre_selector + f"{i}".ljust(state["longest"], ' ') + post_selector + Style.RESET_ALL)

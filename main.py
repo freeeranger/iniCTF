@@ -4,9 +4,9 @@ from pathlib import Path
 import shutil
 from colorama import Fore, Style
 import select_menu
-from config_handler import config_path, config
+from config_handler import config_path, accent_color
 
-print(f"Welcome to iniCTF, let the hacking begin >:) (press {Fore.MAGENTA}q{Style.RESET_ALL} to abort)")
+print(f"Welcome to iniCTF, let the hacking begin >:) (press {accent_color}q{Style.RESET_ALL} to abort)")
 
 if config_path is None:
     print("Platform not recognized, aborted.")
@@ -27,10 +27,11 @@ category = select_menu.select(options=[i.name for i in categories], clear_at_end
 
 if category is None:
     print("IniCTF was aborted.")
+    sys.exit()
 else:
     # exit on empty category folder
     if not os.listdir(f"{config_path}/{category}"):
-        print(f"The folder {Fore.MAGENTA}{category}{Style.RESET_ALL} contains no templates.")
+        print(f"The folder {accent_color}{category}{Style.RESET_ALL} contains no templates.")
         print(f"To add templates, go to {config_path}.\nFor more information, see the documentation on github.")
         sys.exit()
 
@@ -40,7 +41,7 @@ else:
 
     # Copy the template files to the current directory
     if template is not None:
-        print(f"Creating {Fore.MAGENTA}{template}{Style.RESET_ALL}...")
+        print(f"Creating {accent_color}{template}{Style.RESET_ALL}...")
 
         files = list(Path(f'{config_path}/{category}/{template}').iterdir())
         for f in files:

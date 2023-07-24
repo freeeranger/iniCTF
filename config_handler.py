@@ -28,3 +28,5 @@ def parse_config(path):
 
 config_path = get_config_path()
 config = parse_config(config_path)
+accent_color = utils.parse_color(config["appearance"]["accent_color"])
+selector_color = utils.parse_color(config["appearance"]["selector_color"])
