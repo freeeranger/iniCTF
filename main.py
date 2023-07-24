@@ -4,16 +4,13 @@ from pathlib import Path
 import shutil
 from colorama import Fore, Style
 import select_menu
-import config_handler
+from config_handler import config_path, config
 
 print(f"Welcome to iniCTF, let the hacking begin >:) (press {Fore.MAGENTA}q{Style.RESET_ALL} to abort)")
 
-config_path = config_handler.get_config_path()
 if config_path is None:
     print("Platform not recognized, aborted.")
     sys.exit()
-    
-config_handler.parse_config()
 
 if not os.path.exists(config_path):
     os.makedirs(config_path)

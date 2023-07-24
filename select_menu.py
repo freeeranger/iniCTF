@@ -1,5 +1,6 @@
 from pynput import keyboard
 from colorama import Fore, Style
+from config_handler import config
 
 state = {
     "options": [],
@@ -13,9 +14,10 @@ def show_menu():
     index = 0
     for i in state["options"]:
         # special styling if the current option is selected
-        selector = Fore.MAGENTA + "=> " if index == state["selected"] else "   "
-            
-        print(selector + f"{i}".ljust(state["longest"], ' ') + Style.RESET_ALL)
+        pre_selector = Fore.MAGENTA + config["appearance"]["pre_selector"] + " " if index == state["selected"] else " " * (len(config["appearance"]["pre_selector"]) + 1)
+        post_selector = " " + config["appearance"]["post_selector"] if index == state["selected"] else " " * (len(config["appearance"]["post_selector"]) + 1)
+        
+        print(pre_selector + f"{i}".ljust(state["longest"], ' ') + post_selector + Style.RESET_ALL)
         index += 1
 
 
@@ -25,10 +27,14 @@ def clear_menu():
 
 def navigate_up():
     if state["selected"] == 0:
-        await_input()
-        return
+        if config["general"]["navigation_wrap"]:
+            state["selected"] = len(state["options"]) - 1
+        else:
+            await_input()
+            return
+    else:
+        state["selected"] -= 1
     
-    state["selected"] -= 1
     clear_menu()
     show_menu()
     print("\033[A")
@@ -37,10 +43,13 @@ def navigate_up():
 
 def navigate_down():
     if state["selected"] == len(state["options"]) - 1:
-        await_input()
-        return
-    
-    state["selected"] += 1
+        if config["general"]["navigation_wrap"]:
+            state["selected"] = 0
+        else:
+            await_input()
+            return
+    else:
+        state["selected"] += 1
     clear_menu()
     show_menu()
     print("\033[A")

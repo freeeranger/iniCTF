@@ -16,8 +16,8 @@ def get_config_path():
     return None
 
 
-def parse_config():
-    with open(f"{get_config_path()}/inictf.toml", "rb") as f:
+def parse_config(path):
+    with open(f"{path}/inictf.toml", "rb") as f:
         try:
             print("ready")
             return tomllib.load(f)
@@ -26,4 +26,5 @@ def parse_config():
             sys.exit()
 
 
-config = parse_config()
+config_path = get_config_path()
+config = parse_config(config_path)
