@@ -38,7 +38,7 @@ default_config = {
     "appearance": {
         "pre_selector": "=>",
         "post_selector": "",
-        "accent_color": "light_magenta",
+        "accent_color": "pink",
         "selector_color": "light_red"
     }
 }
