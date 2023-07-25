@@ -13,6 +13,7 @@ def is_linux():
     return platform in ("linux", "linux2")
 
 
+# Converts color strings to colorama colors
 def parse_color(color):
     match color:
         case "light_blue":

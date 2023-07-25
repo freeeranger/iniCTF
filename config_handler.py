@@ -6,6 +6,7 @@ import tomli_w
 import utils
 
 
+# Returns the appropriate config path depending on os
 def get_config_path():
     if utils.is_linux():
         # todo implement this
@@ -15,10 +16,16 @@ def get_config_path():
     if utils.is_windows():
         # todo implement this
         return ""
-    return None
+    print("Platform not recognized, aborted.")
+    sys.exit()
 
 
+# Parses the config file into a dictionary
 def parse_config(path):
+    # Create config folder if there is none
+    if not os.path.isdir(path):
+        os.makedirs(path)
+
     # Create default config file if there is none
     if not os.path.isfile(f"{path}/inictf.toml"):
         with open(f"{path}/inictf.toml", "wb") as f:

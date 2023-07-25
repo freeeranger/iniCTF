@@ -8,18 +8,18 @@ import select_menu
 
 print(f"Welcome to iniCTF, let the hacking begin >:) (press {accent_color}q{Style.RESET_ALL} to abort)")
 
-if config_path is None:
-    print("Platform not recognized, aborted.")
-    sys.exit()
+# exit on no templates
+empty = True
+for f in os.listdir(config_path):
+    if os.path.isdir(f"{config_path}/{f}"):
+        empty = False
+        break
 
-if not os.path.exists(config_path):
-    os.makedirs(config_path)
-
-# exit on empty config folder
-if not os.listdir(config_path):
+if empty:
     print(f"No templates found. To add templates, go to {config_path}.")
     print("For more information, see the documentation on github.")
     sys.exit()
+
 
 # category select menu
 categories = [f for f in Path(config_path).iterdir() if f.is_dir()]
