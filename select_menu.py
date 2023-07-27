@@ -72,9 +72,7 @@ def on_press(key):
             aborted = True
             return False
     except AttributeError as _:
-        aborted = True
-        return False
-
+        pass
 
 def await_input():
     listener = keyboard.Listener(on_press=on_press, suppress=True)
@@ -90,7 +88,7 @@ def select(options, clear_at_end = False):
     state["options"] = options
     
     # maintain padding between runs
-    longest_option = max([len(i) for i in options])
+    longest_option = max(len(i) for i in options)
     state["longest"] = state["longest"] if state["longest"] >= longest_option else longest_option
 
     show_menu()
