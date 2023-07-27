@@ -3,6 +3,7 @@ import os
 import tomllib
 from pathlib import Path
 import tomli_w
+from colorama import Style
 import utils
 
 
@@ -33,10 +34,36 @@ def parse_config(path):
 
     with open(f"{path}/inictf.toml", "rb") as f:
         try:
-            return tomllib.load(f)
+            toml = tomllib.load(f)
+            validate_config(toml)
+            return toml
         except Exception:
             print("Error parsing config.")
             sys.exit()
+
+
+def validate_config(toml):
+    found_errors = False
+    
+    color = utils.parse_color(default_config["appearance"]["accent_color"])
+    
+    error_messages = []
+
+    for category, items in default_config.items():
+        for item in items.items():
+            if category in toml and item[0] in toml[category]:
+                if type(toml[category][item[0]]) is not type(item[1]):
+                    error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is of the wrong type.")
+                    found_errors = True
+            else:
+                error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is not present in the config.")
+                found_errors = True
+
+    if found_errors:
+        print("Aborted due to errors found in config:")
+        for message in error_messages:
+            print(f" - {message}")
+        sys.exit()
 
 
 default_config = {
