@@ -73,6 +73,7 @@ def on_press(key):
             return False
     except AttributeError as _:
         pass
+    return True
 
 def await_input():
     listener = keyboard.Listener(on_press=on_press, suppress=True)
