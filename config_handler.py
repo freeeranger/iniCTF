@@ -11,7 +11,6 @@ import utils
 def get_config_path():
     if utils.is_linux():
         return f"{str(Path.home())}/.config/inictf"
-        return ""
     if utils.is_osx():
         return f"{str(Path.home())}/Library/Application Support/inictf"
     if utils.is_windows():
