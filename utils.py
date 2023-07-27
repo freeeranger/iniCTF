@@ -48,5 +48,7 @@ def parse_color(color):
             return Fore.LIGHTBLACK_EX
         case "black":
             return Fore.BLACK
-        case _:
+        case "default":
             return Fore.RESET
+        case _:
+            return None

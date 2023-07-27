@@ -44,9 +44,9 @@ def parse_config(path):
 
 def validate_config(toml):
     found_errors = False
-    
+
     color = utils.parse_color(default_config["appearance"]["accent_color"])
-    
+
     error_messages = []
 
     for category, items in default_config.items():
@@ -55,6 +55,11 @@ def validate_config(toml):
                 if type(toml[category][item[0]]) is not type(item[1]):
                     error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is of the wrong type.")
                     found_errors = True
+                else:
+                    if "color" in item[0]:
+                        if utils.parse_color(toml[category][item[0]]) is None:
+                            error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} references an invalid color: {color}{toml[category][item[0]]}{Style.RESET_ALL}")
+                            found_errors = True
             else:
                 error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is not present in the config.")
                 found_errors = True
