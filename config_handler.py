@@ -14,7 +14,8 @@ def get_config_path():
     if utils.is_osx():
         return f"{str(Path.home())}/Library/Application Support/inictf"
     if utils.is_windows():
-        # todo implement this
+        backslash = "\\"
+        return f"{str(Path.home()).replace(backslash, '/')}/AppData/Roaming/inictf"
         return ""
     print("Platform not recognized, aborted.")
     sys.exit()
@@ -52,15 +53,21 @@ def validate_config(toml):
         for item in items.items():
             if category in toml and item[0] in toml[category]:
                 if type(toml[category][item[0]]) is not type(item[1]):
-                    error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is of the wrong type.")
+                    error_messages.append(
+                        f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is of the wrong type."
+                    )
                     found_errors = True
                 else:
                     if "color" in item[0]:
                         if utils.parse_color(toml[category][item[0]]) is None:
-                            error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} references an invalid color: {color}{toml[category][item[0]]}{Style.RESET_ALL}")
+                            error_messages.append(
+                                f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} references an invalid color: {color}{toml[category][item[0]]}{Style.RESET_ALL}"
+                            )
                             found_errors = True
             else:
-                error_messages.append(f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is not present in the config.")
+                error_messages.append(
+                    f"The setting {color}{category}.{item[0]}{Style.RESET_ALL} is not present in the config."
+                )
                 found_errors = True
 
     if found_errors:
@@ -71,15 +78,13 @@ def validate_config(toml):
 
 
 default_config = {
-    "general": {
-        "navigation_wrap": False
-    },
+    "general": {"navigation_wrap": False},
     "appearance": {
         "pre_selector": "=>",
         "post_selector": "",
         "accent_color": "pink",
-        "selector_color": "light_red"
-    }
+        "selector_color": "light_red",
+    },
 }
 
 config_path = get_config_path()
